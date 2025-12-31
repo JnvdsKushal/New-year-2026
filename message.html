@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your Message</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Outfit', sans-serif;
+                overflow-x: hidden;
+                background: #0a0a0f;
+                color: #ffffff;
+                min-height: 100vh;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+            }
+
+            .bg-gradient {
+                position: fixed;
+                inset: 0;
+                background: radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                            radial-gradient(circle at 70% 50%, rgba(236, 72, 153, 0.06) 0%, transparent 50%),
+                            radial-gradient(circle at 50% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+                animation: bgShift 20s ease-in-out infinite;
+            }
+
+            @keyframes bgShift {
+                0%, 100% { transform: scale(1) rotate(0deg); }
+                50% { transform: scale(1.1) rotate(2deg); }
+            }
+
+            .particles {
+                position: fixed;
+                inset: 0;
+                overflow: hidden;
+                pointer-events: none;
+            }
+
+            .particle {
+                position: absolute;
+                width: 2px;
+                height: 2px;
+                background: rgba(255, 255, 255, 0.4);
+                border-radius: 50%;
+                animation: float linear infinite;
+                filter: blur(0.5px);
+            }
+
+            @keyframes float {
+                to {
+                    transform: translateY(-100vh) translateX(calc(var(--drift) * 20px));
+                    opacity: 0;
+                }
+            }
+
+            .content {
+                width: 90%;
+                max-width: 700px;
+                opacity: 0;
+                transform: translateY(40px);
+                animation: fadeInUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+                z-index: 10;
+            }
+
+            @keyframes fadeInUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .glass-card {
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 32px;
+                padding: clamp(3rem, 8vw, 5rem) clamp(2rem, 6vw, 4rem);
+                backdrop-filter: blur(40px);
+                box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .glass-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 1px;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            }
+
+            .message-text {
+                font-family: 'Outfit', sans-serif;
+                font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+                font-weight: 300;
+                line-height: 1.9;
+                color: rgba(255, 255, 255, 0.85);
+                text-align: center;
+                letter-spacing: 0.01em;
+            }
+
+            .watermark {
+                position: fixed;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 0.85rem;
+                font-weight: 300;
+                letter-spacing: 0.05em;
+                opacity: 0.4;
+                z-index: 100;
+                transition: opacity 0.3s ease;
+            }
+
+            .watermark:hover {
+                opacity: 0.7;
+            }
+
+            @media (max-width: 768px) {
+                body {
+                    padding: 1.5rem;
+                }
+                .glass-card {
+                    border-radius: 24px;
+                }
+                .watermark {
+                    bottom: 1.5rem;
+                    font-size: 0.75rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="bg-gradient"></div>
+        <div class="particles" id="particles"></div>
+
+        <div class="content">
+            <div class="glass-card">
+                <p class="message-text">
+                    Dear Pilla bacchaaa this one's specially for youu so read it nowww <br> So first of all, you should know that you are the bestesttt person I've met this year😋🫂 and I am really glad that we became this close ra, neetho matladithe it literally heals my innner child and no matter what emotion that I show u always tolerate it and handle it in a calm way instead of getting mad at me, clg lo nee lanti bestf dorakadam oka blessing telsa...I like the way u act childish and the drama that u doo uff🤌🏻💞 chinna pillaltho matladinattu untadii ra frr and I love thatttt. Inka I hope that we become even more close in this year and make manyyyy memories, those late night talks, the crazyyy texts that u put, most importantly the wayy u understand me and wtv shit I say...nen edi cheppina vintuu untavv its like the yapper and listener duo😭😭 this year too keep on listening to my shittt hehe. You were my fav, you are my fav you and continue to be my fav too💝<br> Just know that there is this careless guy who doesn't care abt himself cares for youuu and I never want to lose u fr🫶🏻<br>Yayyyyyy<br>Lesssssssssss goooooooo 2026
+                </p>
+            </div>
+        </div>
+
+        <div class="watermark">✨ Created with love by Jnvds Kushal</div>
+
+        <script>
+            // Create floating particles
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.setProperty('--drift', (Math.random() - 0.5) * 2);
+                particle.style.opacity = Math.random() * 0.5 + 0.2;
+                particlesContainer.appendChild(particle);
+            }
+
+            // Subtle cursor glow effect
+            document.addEventListener('mousemove', function(e) {
+                const glow = document.querySelector('.bg-gradient');
+                const x = (e.clientX / window.innerWidth) * 100;
+                const y = (e.clientY / window.innerHeight) * 100;
+                glow.style.background = `
+                    radial-gradient(circle at ${x}% ${y}%, rgba(139, 92, 246, 0.12) 0%, transparent 40%),
+                    radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                    radial-gradient(circle at 70% 50%, rgba(236, 72, 153, 0.06) 0%, transparent 50%)
+                `;
+            });
+        </script>
+    </body>
+    </html>

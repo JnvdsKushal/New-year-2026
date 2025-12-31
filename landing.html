@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 → 2026</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+            background: #0a0a0f;
+            color: #ffffff;
+            height: 100vh;
+        }
+
+        /* Background */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.08), transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(236, 72, 153, 0.06), transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(59, 130, 246, 0.05), transparent 50%);
+            animation: bgShift 20s ease-in-out infinite;
+            z-index: -3;
+        }
+
+        @keyframes bgShift {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Cursor Glow */
+        .cursor-glow {
+            position: fixed;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(167,139,250,0.18), transparent 60%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            filter: blur(20px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -2;
+        }
+
+        body:hover .cursor-glow {
+            opacity: 1;
+        }
+
+        /* Balloons */
+        .balloons {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 40px;
+            height: 55px;
+            border-radius: 50% 50% 45% 45%;
+            background: radial-gradient(circle at 30% 30%, #fff, var(--color));
+            opacity: 0.35;
+            animation: floatUp 18s linear infinite;
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            width: 1px;
+            height: 18px;
+            background: rgba(255,255,255,0.3);
+            transform: translateX(-50%);
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(110vh); }
+            to { transform: translateY(-130vh); }
+        }
+
+        /* Cake */
+        .cake {
+            position: fixed;
+            bottom: 8%;
+            right: 6%;
+            font-size: 3rem;
+            opacity: 0.22;
+            animation: cakeFloat 6s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes cakeFloat {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* Content */
+        .page {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 5;
+        }
+
+        .year-transition {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 12vw, 9rem);
+            background: linear-gradient(135deg, #ffffff, #a78bfa, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.6rem;
+            animation: glow 4s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%,100% { filter: drop-shadow(0 0 30px rgba(167,139,250,0.3)); }
+            50% { filter: drop-shadow(0 0 60px rgba(236,72,153,0.4)); }
+        }
+
+        .subtitle {
+            opacity: 0.85;
+            margin-bottom: 1.8rem;
+            letter-spacing: 0.08em;
+        }
+
+        /* Countdown */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            opacity: 0.55;
+            margin-bottom: 3.5rem;
+        }
+
+        .countdown span {
+            white-space: nowrap;
+        }
+
+        .enter-btn {
+            padding: 1.25rem 3.5rem;
+            font-size: 1.05rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            backdrop-filter: blur(20px);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 20px 60px rgba(167,139,250,0.35);
+        }
+
+        .watermark {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- Balloons -->
+<div class="balloons">
+    <div class="balloon" style="left:10%; --color:#ec4899;"></div>
+    <div class="balloon" style="left:25%; animation-delay:3s; --color:#a78bfa;"></div>
+    <div class="balloon" style="left:60%; animation-delay:6s; --color:#60a5fa;"></div>
+    <div class="balloon" style="left:80%; animation-delay:9s; --color:#f472b6;"></div>
+</div>
+
+<div class="cake">🎂</div>
+
+<div class="page">
+    <div>
+        <h1 class="year-transition">2025 → 2026</h1>
+        <p class="subtitle">This one's just for you ✨</p>
+
+        <!-- COUNTDOWN -->
+        <div class="countdown" id="countdown">
+            <span id="d">00d</span>
+            <span>•</span>
+            <span id="h">00h</span>
+            <span>•</span>
+            <span id="m">00m</span>
+            <span>•</span>
+            <span id="s">00s</span>
+        </div>
+
+        <button class="enter-btn" onclick="enterSite()">Press ENTER</button>
+    </div>
+</div>
+
+<div class="watermark">✨ Created with love by Jnvds Kushal</div>
+
+<script>
+    const glow = document.getElementById("cursorGlow");
+
+    document.addEventListener("mousemove", e => {
+        glow.style.left = e.clientX + "px";
+        glow.style.top = e.clientY + "px";
+    });
+
+    function enterSite() {
+        window.location.href = "message.html";
+    }
+
+    document.addEventListener("keydown", e => {
+        if (e.key === "Enter") enterSite();
+    });
+
+    /* Countdown Logic */
+    const target = new Date("January 1, 2026 00:00:00").getTime();
+
+    setInterval(() => {
+        const now = Date.now();
+        const diff = target - now;
+
+        if (diff <= 0) return;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / (1000 * 60)) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("d").textContent = `${d}d`;
+        document.getElementById("h").textContent = `${h}h`;
+        document.getElementById("m").textContent = `${m}m`;
+        document.getElementById("s").textContent = `${s}s`;
+    }, 1000);
+</script>
+
+</body>
+</html>
